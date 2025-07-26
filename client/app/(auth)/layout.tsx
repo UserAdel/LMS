@@ -32,11 +32,11 @@ export default function AuthLayout({
         {children}
         <div className="text-balance text-center text-xs text-muted-foreground ">
           by clicking continue, you agree to our{" "}
-          <span className="hover:text-primary hover:underline">
+          <span className="hover:text-primary hover:underline cursor-pointer">
             Terms of Service
           </span>{" "}
           and{" "}
-          <span className="hover:text-primary hover:underline">
+          <span className="hover:text-primary hover:underline cursor-pointer">
             Privacy Policy
           </span>
         </div>
