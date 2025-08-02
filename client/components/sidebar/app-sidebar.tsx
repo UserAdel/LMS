@@ -40,7 +40,7 @@ const data = {
     },
     {
       title: "Courses",
-      url: "/Admin/courses",
+      url: "/admin/courses",
       icon: IconListDetails,
     },
     {
