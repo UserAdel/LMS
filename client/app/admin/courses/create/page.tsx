@@ -37,6 +37,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import RichTextEditor from "@/components/rich-text-editor/Editor";
+import { Uploader } from "@/components/file-uploader/Uploader";
 
 export default function CourseCreationPage() {
   const form = useForm({
@@ -124,7 +126,9 @@ export default function CourseCreationPage() {
                       lower: true,
                       strict: true,
                     });
-                    form.setValue("slug", slug, { shouldValidate: true });
+                    form.setValue("slug", slug, {
+                      shouldValidate: true,
+                    });
                   }}
                 >
                   Generate Slug <SparkleIcon className="ml-1" size={16} />
@@ -157,11 +161,7 @@ export default function CourseCreationPage() {
                     <FormItem className="w-full">
                       <FormLabel>Description</FormLabel>
                       <FormControl>
-                        <Textarea
-                          placeholder="Description"
-                          className="min-h-[120px]"
-                          {...field}
-                        ></Textarea>
+                        <RichTextEditor field={field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -176,7 +176,8 @@ export default function CourseCreationPage() {
                     <FormItem className="w-full">
                       <FormLabel>Thumbnail Image</FormLabel>
                       <FormControl>
-                        <Input placeholder="thumbnail url " {...field}></Input>
+                        <Uploader />
+                        {/* <Input placeholder="thumbnail url " {...field}></Input> */}
                       </FormControl>
                       <FormMessage />
                     </FormItem>
