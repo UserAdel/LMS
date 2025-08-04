@@ -1,3 +1,4 @@
+import "server-only";
 // lib/prisma.ts
 import { PrismaClient } from "./generated/prisma";
 
