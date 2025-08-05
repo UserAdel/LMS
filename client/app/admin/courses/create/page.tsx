@@ -16,7 +16,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { ArrowLeft, PlusIcon, SparkleIcon } from "lucide-react";
+import { ArrowLeft, Loader2, PlusIcon, SparkleIcon } from "lucide-react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import {
@@ -39,8 +39,15 @@ import {
 } from "@/components/ui/select";
 import RichTextEditor from "@/components/rich-text-editor/Editor";
 import { Uploader } from "@/components/file-uploader/Uploader";
+import { toast } from "sonner";
+import { CreateCource } from "./actions";
+import { useTransition } from "react";
+import { tryCatch } from "@/hooks/try-catch";
+import { useRouter } from "next/navigation";
 
 export default function CourseCreationPage() {
+  const router = useRouter();
+  const [Pending, startTransition] = useTransition();
   const form = useForm({
     resolver: zodResolver(courseSchema),
     defaultValues: {
@@ -57,8 +64,21 @@ export default function CourseCreationPage() {
     },
   });
 
-  const onSubmit = async (data: z.infer<typeof courseSchema>) => {
-    console.log(data);
+  const onSubmit = async (values: z.infer<typeof courseSchema>) => {
+    startTransition(async () => {
+      const { data: result, error } = await tryCatch(CreateCource(values));
+
+      if (error) {
+        toast.error("An Unexpected error occurred. Please try again");
+      }
+      if (result?.status === "success") {
+        toast.success(result.message);
+        form.reset();
+        router.push("/admin/courses");
+      } else if (result?.status === "error") {
+        toast.error(result.message);
+      }
+    });
   };
   return (
     <>
@@ -316,8 +336,17 @@ export default function CourseCreationPage() {
                   );
                 }}
               />
-              <Button type="submit">
-                Create Course <PlusIcon className="ml- mt-0.5" size={16} />
+              <Button type="submit" disabled={Pending}>
+                {Pending ? (
+                  <>
+                    Creating...
+                    <Loader2 className="animate-spin mr-2" size={16} />
+                  </>
+                ) : (
+                  <>
+                    Create Course <PlusIcon className="ml-1" size={16} />
+                  </>
+                )}
               </Button>
             </form>
           </Form>
