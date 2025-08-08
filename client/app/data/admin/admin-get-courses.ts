@@ -7,6 +7,7 @@ export async function adminGetCourses() {
     select: {
       id: true,
       title: true,
+      description: true,
       smallDescription: true,
       duration: true,
       level: true,
@@ -14,6 +15,7 @@ export async function adminGetCourses() {
       price: true,
       fileKey: true,
       slug: true,
+      category: true,
     },
     orderBy: {
       createdAt: "desc",
@@ -22,4 +24,6 @@ export async function adminGetCourses() {
   return data;
 }
 
-export type AdminCourseType = Awaited<ReturnType<typeof adminGetCourses>>[0];
+export type AdminCourseSingularType = Awaited<
+  ReturnType<typeof adminGetCourses>
+>[0];

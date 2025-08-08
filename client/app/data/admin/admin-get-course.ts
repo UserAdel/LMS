@@ -27,3 +27,5 @@ export async function adminGetCourse(id: string) {
   }
   return data;
 }
+
+export type AdminCourseType = Awaited<ReturnType<typeof adminGetCourse>>;
