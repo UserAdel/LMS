@@ -2,6 +2,9 @@ import "server-only";
 import { requireAdmin } from "./require-admin";
 import { prisma } from "@/lib/db";
 import { notFound } from "next/navigation";
+import { Select } from "@radix-ui/react-select";
+import { title } from "process";
+import { description } from "@/components/sidebar/chart-area-interactive";
 export async function adminGetCourse(id: string) {
   await requireAdmin();
   const data = await prisma.course.findUnique({
@@ -20,6 +23,26 @@ export async function adminGetCourse(id: string) {
       slug: true,
       smallDescription: true,
       category: true,
+      chapter: {
+        select: {
+          id: true,
+          title: true,
+          position: true,
+          lesson: {
+            select: {
+              id: true,
+              title: true,
+              description: true,
+              thumnailKey: true,
+              position: true,
+              videoKey: true,
+            },
+            orderBy: {
+              position: "asc",
+            },
+          },
+        },
+      },
     },
   });
   if (!data) {

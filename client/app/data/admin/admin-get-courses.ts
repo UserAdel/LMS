@@ -16,6 +16,26 @@ export async function adminGetCourses() {
       fileKey: true,
       slug: true,
       category: true,
+      chapter: {
+        select: {
+          id: true,
+          title: true,
+          position: true,
+          lesson: {
+            select: {
+              id: true,
+              title: true,
+              position: true,
+            },
+            orderBy: {
+              position: "asc",
+            },
+          },
+        },
+        orderBy: {
+          position: "asc",
+        },
+      },
     },
     orderBy: {
       createdAt: "desc",

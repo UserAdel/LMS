@@ -10,6 +10,7 @@ import { Tabs, TabsList } from "@/components/ui/tabs";
 import { TabsTrigger } from "@/components/ui/tabs";
 import { TabsContent } from "@radix-ui/react-tabs";
 import { EditCourseForm } from "./_components/EditCourseForm";
+import CourseStructure from "./_components/CourseStructure";
 
 type Params = {
   params: Promise<{ courseid: string }>;
@@ -39,6 +40,19 @@ export default async function EditRoute({ params }: Params) {
             </CardHeader>
             <CardContent>
               <EditCourseForm data={data} />
+            </CardContent>
+          </Card>
+        </TabsContent>
+        <TabsContent value="course-structure">
+          <Card>
+            <CardHeader>
+              <CardTitle>Course Structure</CardTitle>
+              <CardDescription>
+                Here You Can Update Your Course Structure
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <CourseStructure data={data} />
             </CardContent>
           </Card>
         </TabsContent>
