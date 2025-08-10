@@ -1,3 +1,4 @@
+import { description } from "@/components/sidebar/chart-area-interactive";
 import { z } from "zod";
 export const CourseLevels = ["Beginner", "Intermediate", "Advanced"] as const;
 export const couresStatus = ["Draft", "Published", "Archived"] as const;
@@ -37,10 +38,32 @@ export const courseSchema = z.object({
     .string()
     .min(1, { message: "Short description is required" })
     .max(200, {
-      message: "Short description must be at most 200 characters long",
+      message: "Short description must be at most 200 cha racters long",
     }),
   slug: z.string().min(3, { message: "Slug is required" }),
   status: z.enum(couresStatus, { message: "Please select a valid status" }),
 });
 
+export const chpaterSchema = z.object({
+  name: z
+    .string()
+    .min(3, { message: "name must be at least 3 characters long" }),
+  courseId: z.string().uuid({ message: "course id is required" }),
+});
+export const lessonSchema = z.object({
+  name: z
+    .string()
+    .min(3, { message: "name must be at least 3 characters long" }),
+  courseId: z.string().uuid({ message: "course id is required" }),
+  chapterId: z.string().uuid({ message: "chapter id is required" }),
+  description: z
+    .string()
+    .min(3, { message: "Description must be at least 3 characters long" })
+    .optional(),
+  thumnailKey: z.string().optional(),
+  videoKey: z.string().optional(),
+});
+
 export type CourseSchemaType = z.infer<typeof courseSchema>;
+export type ChapterSchemaType = z.infer<typeof chpaterSchema>;
+export type lessonSchemaType = z.infer<typeof lessonSchema>;
