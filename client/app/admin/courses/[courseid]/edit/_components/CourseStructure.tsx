@@ -39,6 +39,8 @@ import { toast } from "sonner";
 import { reorderChapter, reorderLessons } from "../actions/action";
 import { NewChapterModal } from "./NewChapterModal";
 import { NewLessonModal } from "./newLessonModal";
+import DeleteLesson from "./DeleteLesson";
+import DeleteChapter from "./DeleteChapter";
 
 interface iAppProps {
   data: AdminCourseSingularType;
@@ -309,9 +311,7 @@ export default function CourseStructure({ data }: iAppProps) {
                             {item.title}
                           </p>
                         </div>
-                        <Button size="icon" variant="outline">
-                          <Trash2 className="size-4" />
-                        </Button>
+                        <DeleteChapter chapterId={item.id} CourseId={data.id} />
                       </div>
                       <CollapsibleContent>
                         <div className="p-1">
@@ -342,9 +342,12 @@ export default function CourseStructure({ data }: iAppProps) {
                                         {lesson.title}
                                       </Link>
                                     </div>
-                                    <Button variant="outline" size="icon">
-                                      <Trash2 className="size-4" />
-                                    </Button>
+
+                                    <DeleteLesson
+                                      lessonId={lesson.id}
+                                      chapterId={item.id}
+                                      CourseId={data.id}
+                                    />
                                   </div>
                                 )}
                               </SortableItem>
