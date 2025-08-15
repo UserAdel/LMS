@@ -1,5 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { AdminCourseType } from "@/app/data/admin/admin-get-courses";
+import { AdminCourseSingularType } from "@/app/data/admin/admin-get-courses";
 import Image from "next/image";
 import { useContructUrl } from "@/hooks/use-construct";
 import Link from "next/link";
@@ -23,7 +23,7 @@ import {
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
 interface iAppProps {
-  data: AdminCourseType;
+  data: AdminCourseSingularType;
 }
 export function AdminCourseCard({ data }: iAppProps) {
   const thumbnailUrl = useContructUrl(data.fileKey);
@@ -53,7 +53,7 @@ export function AdminCourseCard({ data }: iAppProps) {
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
-              <Link href={`admin/courses/${data.id}/delete`}>
+              <Link href={`/admin/courses/${data.id}/delete`}>
                 <Trash2 className="size-4 mr-2 text-destructive" />
                 Delete Course
               </Link>

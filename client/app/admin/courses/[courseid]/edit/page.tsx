@@ -13,12 +13,12 @@ import { EditCourseForm } from "./_components/EditCourseForm";
 import CourseStructure from "./_components/CourseStructure";
 
 type Params = {
-  params: Promise<{ courseid: string }>;
+  params: Promise<{ courseId: string }>;
 };
 
 export default async function EditRoute({ params }: Params) {
-  const { courseid } = await params;
-  const data = await adminGetCourse(courseid);
+  const { courseId } = await params;
+  const data = await adminGetCourse(courseId);
   return (
     <div>
       <h1 className="text-3xl font-bold mb-8">
