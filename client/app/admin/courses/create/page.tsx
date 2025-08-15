@@ -199,6 +199,7 @@ export default function CourseCreationPage() {
                         <Uploader
                           onChange={field.onChange}
                           value={field.value}
+                          fileTypeAccepted="image"
                         />
                         {/* <Input placeholder="thumbnail url " {...field}></Input> */}
                       </FormControl>
