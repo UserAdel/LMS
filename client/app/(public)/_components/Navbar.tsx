@@ -9,11 +9,11 @@ import { UserDropdown } from "./UserDropdown";
 
 const navigationItems = [
   {
-    name: "home",
+    name: "Home",
     href: "/",
   },
   {
-    name: "courses",
+    name: "Courses",
     href: "/courses",
   },
   {
