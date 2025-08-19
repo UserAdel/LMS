@@ -19,7 +19,7 @@ import {
 } from "@radix-ui/react-collapsible";
 import { Card, CardContent } from "@/components/ui/card";
 import { CheckIcon } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { checkIfCourseBought } from "@/app/data/user/user-is-enrolled";
 import Link from "next/link";
 import { EnrollmentButton } from "./_components/EnrollmentButtons";
@@ -248,13 +248,18 @@ export default async function SlugPage({ params }: { params: Params }) {
                 </ul>
               </div>
 
-              <Button className="w-full">
-                {isEnrolled ? (
-                  <Link href="/dashboard">Watch Course</Link>
-                ) : (
-                  <EnrollmentButton courseId={course.id} />
-                )}
-              </Button>
+              {isEnrolled ? (
+                <Button className="w-full" asChild>
+                  <Link
+                    className={buttonVariants({ className: "w-full" })}
+                    href="/dashboard"
+                  >
+                    Watch Course
+                  </Link>
+                </Button>
+              ) : (
+                <EnrollmentButton courseId={course.id} />
+              )}
 
               <p className="text-xs text-center mt-3 text-muted-foreground">
                 30-day money-back guarantee
