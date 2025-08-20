@@ -7,12 +7,12 @@ import Stripe from "stripe";
 export async function POST(req: Request) {
   const body = await req.text();
   const headersList = await headers();
-  const signture = headersList.get("Stripe-Signature") as string;
+  const signature = headersList.get("Stripe-Signature") as string;
   let event: Stripe.Event;
   try {
     event = stripe.webhooks.constructEvent(
       body,
-      signture,
+      signature,
       env.STRIPE_WEBHOOK_SECRET as string
     );
   } catch (error) {
@@ -22,10 +22,11 @@ export async function POST(req: Request) {
   const session = event.data.object as Stripe.Checkout.Session;
   if (event.type === "checkout.session.completed") {
     const courseId = session.metadata?.courseId;
-    const customerId = session.metadata?.customerId as string;
+    const customerId = session.customer as string;
     if (!courseId) {
       throw new Error("Coursr id not found");
     }
+
     const user = await prisma.user.findUnique({
       where: {
         stripCustomerId: customerId,
@@ -34,6 +35,7 @@ export async function POST(req: Request) {
     if (!user) {
       throw new Error("User not found");
     }
+
     await prisma.enrollment.update({
       where: {
         id: session.metadata?.enrollmentId as string,
@@ -46,5 +48,6 @@ export async function POST(req: Request) {
       },
     });
   }
+
   return new Response(null, { status: 200 });
 }
