@@ -1,30 +1,37 @@
 import "server-only";
 import { prisma } from "@/lib/db";
-import { notFound } from "next/navigation";
+import { requireAdmin } from "./require-admin";
 
-export default async function getIndvidualCourse(slug: string) {
-  const course = await prisma.course.findUnique({
-    where: {
-      slug: slug,
+export async function adminGetRecentCourses() {
+  await requireAdmin();
+
+  const data = prisma.course.findMany({
+    orderBy: {
+      createdAt: "asc",
     },
+    take: 2,
     select: {
       id: true,
       title: true,
       description: true,
-      fileKey: true,
-      price: true,
+      smallDescription: true,
       duration: true,
       level: true,
+      status: true,
+      price: true,
+      fileKey: true,
+      slug: true,
       category: true,
-      smallDescription: true,
       chapter: {
         select: {
           id: true,
           title: true,
+          position: true,
           lesson: {
             select: {
               id: true,
               title: true,
+              position: true,
             },
             orderBy: {
               position: "asc",
@@ -37,8 +44,5 @@ export default async function getIndvidualCourse(slug: string) {
       },
     },
   });
-  if (!course) {
-    return notFound();
-  }
-  return course;
+  return data;
 }

@@ -1,0 +1,40 @@
+import "server-only";
+import { prisma } from "@/lib/db";
+import { requireAdmin } from "./require-admin";
+
+export async function adminGetEnrollmentStats() {
+  await requireAdmin();
+  const ThirtyDaysAgo = new Date();
+  ThirtyDaysAgo.setDate(ThirtyDaysAgo.getDate() - 30);
+  const entrollments = await prisma.enrollment.findMany({
+    where: {
+      createdAt: {
+        gte: ThirtyDaysAgo,
+      },
+    },
+    select: {
+      createdAt: true,
+    },
+    orderBy: {
+      createdAt: "asc",
+    },
+  });
+  const last30Days: { date: string; enrollments: number }[] = [];
+
+  for (let i = 29; i < 0; i--) {
+    const date = new Date();
+    date.setDate(date.getDate() - i);
+    last30Days.push({
+      date: date.toISOString().split("T")[0],
+      enrollments: 0,
+    });
+  }
+  entrollments.forEach((enrollment) => {
+    const enrollmentDate = enrollment.createdAt.toISOString().split("T")[0];
+    const dayIndex = last30Days.findIndex((day) => day.date === enrollmentDate);
+    if (dayIndex !== -1) {
+      last30Days[dayIndex].enrollments++;
+    }
+  });
+  return last30Days;
+}

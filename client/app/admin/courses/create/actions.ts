@@ -5,6 +5,7 @@ import { ApiResponse } from "@/lib/type";
 import { requireAdmin } from "@/app/data/admin/require-admin";
 import arcjet, { detectBot, fixedWindow } from "@/lib/arcjet";
 import { request } from "@arcjet/next";
+import { stripe } from "@/lib/stripe";
 
 const aj = arcjet
   .withRule(
@@ -22,7 +23,7 @@ const aj = arcjet
   );
 
 export async function CreateCource(
-  data: CourseSchemaType
+  values: CourseSchemaType
 ): Promise<ApiResponse> {
   const session = await requireAdmin();
   try {
@@ -43,14 +44,26 @@ export async function CreateCource(
         };
       }
     }
-    const validation = courseSchema.safeParse(data);
+    const validation = courseSchema.safeParse(values);
 
     if (!validation.success) {
       return { status: "error", message: "Invalid Form Data" };
     }
 
+    const data = await stripe.products.create({
+      name: validation.data.title,
+      description: validation.data.smallDescription,
+      default_price_data: {
+        currency: "usd",
+        unit_amount: validation.data.price * 100,
+      },
+    });
     await prisma.course.create({
-      data: { ...validation.data, userId: session?.user.id as string },
+      data: {
+        ...validation.data,
+        userId: session?.user.id as string,
+        stripePriceId: data.default_price as string,
+      },
     });
 
     return { status: "success", message: "Course Created Successfully" };
