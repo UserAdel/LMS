@@ -6,7 +6,7 @@ export async function adminGetEnrollmentStats() {
   await requireAdmin();
   const ThirtyDaysAgo = new Date();
   ThirtyDaysAgo.setDate(ThirtyDaysAgo.getDate() - 30);
-  const entrollments = await prisma.enrollment.findMany({
+  const enrollments = await prisma.enrollment.findMany({
     where: {
       createdAt: {
         gte: ThirtyDaysAgo,
@@ -21,7 +21,8 @@ export async function adminGetEnrollmentStats() {
   });
   const last30Days: { date: string; enrollments: number }[] = [];
 
-  for (let i = 29; i < 0; i--) {
+  // Generate 30 consecutive days starting from 29 days ago
+  for (let i = 29; i >= 0; i--) {
     const date = new Date();
     date.setDate(date.getDate() - i);
     last30Days.push({
@@ -29,12 +30,19 @@ export async function adminGetEnrollmentStats() {
       enrollments: 0,
     });
   }
-  entrollments.forEach((enrollment) => {
+  // Debug: Log the generated dates
+  console.log(
+    "Generated 30 days:",
+    last30Days.map((day) => day.date)
+  );
+
+  enrollments.forEach((enrollment) => {
     const enrollmentDate = enrollment.createdAt.toISOString().split("T")[0];
     const dayIndex = last30Days.findIndex((day) => day.date === enrollmentDate);
     if (dayIndex !== -1) {
       last30Days[dayIndex].enrollments++;
     }
   });
+
   return last30Days;
 }

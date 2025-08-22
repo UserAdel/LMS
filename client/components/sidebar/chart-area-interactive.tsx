@@ -63,7 +63,7 @@ export function ChartAreaInteractive({ data }: ChartAreaIneractiveProps) {
           >
             <CartesianGrid vertical={false} />
             <XAxis
-              dataKey="data"
+              dataKey="date"
               tickLine={false}
               axisLine={false}
               tickMargin={8}
@@ -90,7 +90,7 @@ export function ChartAreaInteractive({ data }: ChartAreaIneractiveProps) {
                 />
               }
             />
-            <Bar dataKey="Enrollments" fill="var(--color-enrollments)" />
+            <Bar dataKey="enrollments" fill="var(--chart-1)" />
           </BarChart>
         </ChartContainer>
       </CardContent>
