@@ -30,11 +30,6 @@ export async function adminGetEnrollmentStats() {
       enrollments: 0,
     });
   }
-  // Debug: Log the generated dates
-  console.log(
-    "Generated 30 days:",
-    last30Days.map((day) => day.date)
-  );
 
   enrollments.forEach((enrollment) => {
     const enrollmentDate = enrollment.createdAt.toISOString().split("T")[0];

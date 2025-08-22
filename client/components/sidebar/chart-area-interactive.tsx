@@ -67,7 +67,7 @@ export function ChartAreaInteractive({ data }: ChartAreaIneractiveProps) {
               tickLine={false}
               axisLine={false}
               tickMargin={8}
-              interval={"preserveStartEnd"}
+              interval={"equidistantPreserveStart"}
               tickFormatter={(value) => {
                 const data = new Date(value);
                 return data.toLocaleDateString("en-US", {
