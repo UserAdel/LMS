@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { startTransition } from "react";
 import { toast } from "sonner";
 import { tryCatch } from "@/hooks/try-catch";
 import { useConfetti } from "@/hooks/use-confetti";
@@ -11,7 +10,6 @@ import { Loader2 } from "lucide-react";
 
 export function EnrollmentButton({ courseId }: { courseId: string }) {
   const [pending, startTransition] = useTransition();
-  const { triggerConfetti } = useConfetti();
 
   const onSubmit = async () => {
     startTransition(async () => {

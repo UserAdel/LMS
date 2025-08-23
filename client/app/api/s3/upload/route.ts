@@ -8,7 +8,7 @@ import { S3 } from "@/lib/S3Client";
 import arcjet, { fixedWindow } from "@/lib/arcjet";
 import { requireAdmin } from "@/app/data/admin/require-admin";
 
-export const fileUploadSchema = z.object({
+const fileUploadSchema = z.object({
   fileName: z.string().min(1, { message: "FileName is required" }),
   contentType: z.string().min(1, { message: "ContentType is required" }),
   size: z.number().min(1, { message: "Size is required" }),
@@ -51,7 +51,7 @@ export async function POST(Request: Request) {
     const presignedUrl = await getSignedUrl(S3, command, { expiresIn: 360 });
     const response = { presignedUrl, key: uniqueKey };
     return NextResponse.json(response, { status: 200 });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: "Failed to generate presigned URL" },
       { status: 500 }

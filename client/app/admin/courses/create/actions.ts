@@ -67,7 +67,7 @@ export async function CreateCource(
     });
 
     return { status: "success", message: "Course Created Successfully" };
-  } catch (error) {
+  } catch {
     return { status: "error", message: "Failed to create course" };
   }
 }

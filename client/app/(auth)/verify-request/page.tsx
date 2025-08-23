@@ -14,12 +14,19 @@ import {
 } from "@/components/ui/input-otp";
 import { authClient } from "@/lib/auth-client";
 import { useSearchParams } from "next/navigation";
-import { useState, useTransition } from "react";
+import { Suspense, useState, useTransition } from "react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
 
-export default function VerifyRequest() {
+export default function VerifyRequestRoute() {
+  return (
+    <Suspense>
+      <VerifyRequest />
+    </Suspense>
+  );
+}
+function VerifyRequest() {
   const [otp, setOtp] = useState("");
   const [emailPending, StartTranstion] = useTransition();
   const params = useSearchParams();

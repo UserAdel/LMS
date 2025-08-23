@@ -5,7 +5,6 @@ import { LessonSkeleton } from "./_components/LessonSkeleton";
 type Params = Promise<{ lessonId: string }>;
 export default async function LessonPage({ params }: { params: Params }) {
   const { lessonId } = await params;
-  const data = await getLessonContent(lessonId);
   return (
     <Suspense fallback={<LessonSkeleton />}>
       <LessonContentLoader lessonId={lessonId} />

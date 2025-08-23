@@ -31,7 +31,6 @@ import {
   ChevronRight,
   FileText,
   GripVertical,
-  Trash2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -96,7 +95,6 @@ export default function CourseStructure({ data }: iAppProps) {
       setNodeRef,
       transform,
       transition,
-      isDragging,
     } = useSortable({ id: id, data: data });
 
     const style = {

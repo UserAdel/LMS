@@ -18,7 +18,7 @@ export default function notAdmin() {
           </div>
           <CardTitle className="text-2xl">Access Restricted</CardTitle>
           <CardDescription className="max-w-xs mx-auto">
-            Hey! you are not an admin,which means you can't create any courses
+            Hey! you are not an admin, which means you can&apos;t create any courses
             of stuff like that...
           </CardDescription>
         </CardHeader>

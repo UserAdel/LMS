@@ -1,5 +1,4 @@
 import { getAllCourses } from "@/app/data/course/get-all-courses";
-import { EmptyState } from "@/components/general/EmptyState";
 import { Suspense } from "react";
 import {
   PublicCourseCard,

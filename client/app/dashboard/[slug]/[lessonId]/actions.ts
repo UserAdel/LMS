@@ -32,7 +32,7 @@ export async function MarkLessonAsComplete(
       status: "success",
       message: "Progress updated",
     };
-  } catch (error) {
+  } catch {
     return {
       status: "error",
       message: "Failed to mark lesson as complete",
