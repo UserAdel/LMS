@@ -18,6 +18,10 @@ type Params = {
 
 export default async function EditRoute({ params }: Params) {
   const { courseId } = await params;
+  console.log(courseId);
+  if (!courseId) {
+    return <div>Course Not Found</div>;
+  }
   const data = await adminGetCourse(courseId);
   return (
     <div>
