@@ -9,8 +9,8 @@ import {
 import { Progress } from "@/components/ui/progress";
 import { ChevronDown, PlayIcon } from "lucide-react";
 import { LessonItem } from "./LessonItem";
-import { use } from "react";
 import { usePathname } from "next/navigation";
+import { useCourseProgress } from "@/hooks/use-course-progress";
 
 interface iAppProps {
   course: getCourseSidebarDataType["course"];
@@ -18,8 +18,10 @@ interface iAppProps {
 
 export function CourseSidebar({ course }: iAppProps) {
   const pathname = usePathname();
-
   const currentLessonId = pathname.split("/").pop();
+  const { completedLessons, totalLessons, progressPercentage } =
+    useCourseProgress({ courseData: course });
+
   return (
     <div className="flex flex-col h-full">
       <div className="pb-4 pr-4 border-b border-border">
@@ -39,10 +41,14 @@ export function CourseSidebar({ course }: iAppProps) {
         <div className="space-y-2 ">
           <div className="flex justify-between text-xs">
             <span className="text-muted-foreground">Progress</span>
-            <span className="font-medium">4/10 Lessons</span>
+            <span className="font-medium">
+              {completedLessons}/{totalLessons} Lessons
+            </span>
           </div>
-          <Progress value={55} className="h-1.5" />
-          <p className="text-xs text-muted-foreground">55% complete</p>
+          <Progress value={progressPercentage} className="h-1.5" />
+          <p className="text-xs text-muted-foreground">
+            {progressPercentage}% complete
+          </p>
         </div>
       </div>
       <div className="py-4 pr-4 space-y-3">
@@ -73,6 +79,10 @@ export function CourseSidebar({ course }: iAppProps) {
                   slug={course.slug}
                   key={lesson.id}
                   isActive={lesson.id === currentLessonId}
+                  completed={
+                    lesson.lessonProgess.find((progress) => progress.lessonId)
+                      ?.completed || false
+                  }
                 />
               ))}
             </CollapsibleContent>
