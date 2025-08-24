@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
 import { useContructUrl } from "@/hooks/use-construct";
 import Link from "next/link";
-import { buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { EnrolledCoursesType } from "@/app/data/user/get-enrolled-courses";
 import { useCourseProgress } from "@/hooks/use-course-progress";
@@ -50,14 +50,11 @@ export function CourseProgressCard({ data }: iAppProps) {
           </p>
         </div>
 
-        <Link
-          className={buttonVariants({
-            className: "w-full mt-4",
-          })}
-          href={`/dashboard/${data.Course.slug}`}
-        >
-          Learn More
-        </Link>
+        <Button className="w-full mt-4" disabled={totalLessons === 0}>
+          <Link className="w-full" href={`/dashboard/${data.Course.slug}`}>
+            {totalLessons === 0 ? "No Lessons" : "Learn More"}
+          </Link>
+        </Button>
       </CardContent>
     </Card>
   );
