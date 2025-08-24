@@ -12,13 +12,37 @@ import { TabsContent } from "@radix-ui/react-tabs";
 import { EditCourseForm } from "./_components/EditCourseForm";
 import CourseStructure from "./_components/CourseStructure";
 
-type Params = {
-  params: Promise<{ courseId: string }>;
-};
+export default async function EditRoute({ params }: any) {
+  const isPromise = !!params && typeof (params as any).then === "function";
+  console.log(
+    "DEBUG ROUTE — raw params type:",
+    Object.prototype.toString.call(params)
+  );
+  console.log("DEBUG ROUTE — params isPromise:", isPromise);
 
-export default async function EditRoute({ params }: Params) {
-  const { courseId } = await params;
-  console.log(courseId);
+  let resolved: any;
+  try {
+    resolved = await params;
+  } catch (err) {
+    console.log("DEBUG ROUTE — await params threw:", err);
+    resolved = params;
+  }
+
+  try {
+    console.log("DEBUG ROUTE — resolved keys:", Object.keys(resolved ?? {}));
+  } catch (e) {
+    console.log("DEBUG ROUTE — resolved keys error:", e);
+  }
+
+  const courseId =
+    resolved?.courseId ??
+    resolved?.courseid ??
+    resolved?.id ??
+    (resolved && Object.values(resolved)[0]);
+
+  console.log("DEBUG ROUTE — resolved object:", resolved);
+  console.log("DEBUG ROUTE — final courseId:", courseId);
+
   if (!courseId) {
     return <div>Course Not Found</div>;
   }
