@@ -27,14 +27,14 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur-[backdrop-filter]:bg-background/60">
-      <div className="container flex min-h-16 items-center mx-auto px-4 md:px-6 lg:px-8">
+      <div className="container flex min-h-16 items-center mx-auto px-2 md:px-6 lg:px-8">
         <Link className="flex items-center space-x-2 mr-4" href="/">
           <Image src={logo} alt="logo" className="size-9" />
           <span className="hidden md:flex font-bold">MashalLMS</span>
         </Link>
         {/* Desktop Navigation */}
         <nav className="flex justify-between items-center flex-1">
-          <div className="flex items-center space-x-2 ">
+          <div className="flex items-center space-x-1 md:space-x-2 ">
             {navigationItems.map((item) => {
               return (
                 <Link
@@ -48,7 +48,7 @@ export function Navbar() {
             })}
           </div>
 
-          <div className="flex justify-center items-center space-x-2 md:space-x-4">
+          <div className="flex justify-center items-center space-x-1 md:space-x-4">
             <ThemeToggle />
             {isPending ? null : session ? (
               <UserDropdown
@@ -65,15 +65,12 @@ export function Navbar() {
               />
             ) : (
               <>
-                <Link
-                  href="/login"
-                  className={buttonVariants({ variant: "secondary" })}
-                >
+                <Link href="/login" className={buttonVariants()}>
                   Login
                 </Link>
-                <Link className={buttonVariants()} href="/">
+                {/* <Link className={buttonVariants()} href="/">
                   Get Started
-                </Link>
+                </Link> */}
               </>
             )}
           </div>
