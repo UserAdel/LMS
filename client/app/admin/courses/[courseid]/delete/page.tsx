@@ -18,7 +18,31 @@ import { Loader2, Trash2 } from "lucide-react";
 export default function DeleteCourseRoute() {
   const [pending, startTransition] = useTransition();
   const router = useRouter();
-  const { courseId } = useParams<{ courseId: string }>();
+  const params = useParams<{ courseId: string }>();
+
+  console.log(
+    "DEBUG DELETE — raw params type:",
+    Object.prototype.toString.call(params)
+  );
+  console.log("DEBUG DELETE — params object:", params);
+
+  try {
+    console.log("DEBUG DELETE — params keys:", Object.keys(params ?? {}));
+  } catch (e) {
+    console.log("DEBUG DELETE — params keys error:", e);
+  }
+
+  const courseId =
+    params?.courseId ??
+    (params as any)?.id ??
+    (params && Object.values(params)[0]);
+
+  console.log("DEBUG DELETE — final courseId:", courseId);
+
+  if (!courseId) {
+    return <div>Course Not Found</div>;
+  }
+
   const onSubmit = async () => {
     startTransition(async () => {
       const { data: result, error } = await tryCatch(deleteCourse(courseId));

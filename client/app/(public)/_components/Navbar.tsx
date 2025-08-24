@@ -30,10 +30,10 @@ export function Navbar() {
       <div className="container flex min-h-16 items-center mx-auto px-4 md:px-6 lg:px-8">
         <Link className="flex items-center space-x-2 mr-4" href="/">
           <Image src={logo} alt="logo" className="size-9" />
-          <span className="font-bold">MashalLMS</span>
+          <span className="hidden md:flex font-bold">MashalLMS</span>
         </Link>
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex md:justify-between md:items-center md:flex-1">
+        <nav className="flex justify-between items-center flex-1">
           <div className="flex items-center space-x-2 ">
             {navigationItems.map((item) => {
               return (
@@ -48,7 +48,7 @@ export function Navbar() {
             })}
           </div>
 
-          <div className="flex justify-center items-center space-x-4">
+          <div className="flex justify-center items-center space-x-2 md:space-x-4">
             <ThemeToggle />
             {isPending ? null : session ? (
               <UserDropdown

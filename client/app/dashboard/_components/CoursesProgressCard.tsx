@@ -29,12 +29,19 @@ export function CourseProgressCard({ data }: iAppProps) {
         height={400}
       />
       <CardContent className="p-4">
-        <Link
-          className="font-medium text-lg line-clamp-2 hover:underline group-hover:text-primary transition-colors"
-          href={`/dashboard/${data.Course.slug}`}
-        >
-          {data.Course.title}
-        </Link>
+        {totalLessons === 0 ? (
+          <p className="font-medium text-lg line-clamp-2 text-muted-foreground ">
+            {data.Course.title}
+          </p>
+        ) : (
+          <Link
+            className="font-medium text-lg line-clamp-2 hover:underline group-hover:text-primary transition-colors"
+            href={`/dashboard/${data.Course.slug}`}
+          >
+            {data.Course.title}
+          </Link>
+        )}
+
         <p className="line-clamp-2 text-sm text-muted-foreground leading-tight mt-2">
           {data.Course.smallDescription}
         </p>
