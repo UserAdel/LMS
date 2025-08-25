@@ -34,7 +34,7 @@ export function Navbar() {
         </Link>
         {/* Desktop Navigation */}
         <nav className="flex justify-between items-center flex-1">
-          <div className="flex items-center space-x-1 md:space-x-2 ">
+          <div className="flex items-center space-x-2 ">
             {navigationItems.map((item) => {
               return (
                 <Link

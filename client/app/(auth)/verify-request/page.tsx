@@ -31,6 +31,7 @@ function VerifyRequest() {
   const [emailPending, StartTranstion] = useTransition();
   const params = useSearchParams();
   const email = params.get("email") as string;
+  const password = params.get("password") as string;
   const router = useRouter();
   const isOtpComplete = otp.length === 6;
 

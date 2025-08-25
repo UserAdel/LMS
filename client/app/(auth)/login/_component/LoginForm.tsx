@@ -19,7 +19,9 @@ export function LoginForm() {
   const router = useRouter();
   const [githubPending, startGitubTransition] = useTransition();
   const [emailPending, startEmailtranstion] = useTransition();
+  const [googlePending, startGoogleTransition] = useTransition();
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   async function signInWithGithub() {
     startGitubTransition(async () => {
@@ -46,10 +48,27 @@ export function LoginForm() {
         fetchOptions: {
           onSuccess: () => {
             toast.success("Email Sent");
-            router.push(`/verify-request?email=${email}`);
+            router.push(`/verify-request?email=${email}&password=${password}`);
           },
           onError: () => {
             toast.error("error Sending Email");
+          },
+        },
+      });
+    });
+  }
+
+  async function signInWithGoogle() {
+    startGoogleTransition(async () => {
+      await authClient.signIn.social({
+        provider: "google",
+        callbackURL: "/",
+        fetchOptions: {
+          onSuccess: () => {
+            toast.success("Signed in successfully(google)");
+          },
+          onError: (error) => {
+            toast.error(error.error.message);
           },
         },
       });
@@ -78,6 +97,22 @@ export function LoginForm() {
             </>
           )}
         </Button>
+
+        <Button
+          onClick={signInWithGoogle}
+          className="w-full"
+          variant="outline"
+          disabled={googlePending}
+        >
+          {googlePending ? (
+            <Loader className="size-4 animate-spin" />
+          ) : (
+            <>
+              <GithubIcon className="size-4" />
+              Sign in with Google
+            </>
+          )}
+        </Button>
         <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:item-center after:border-t after:border-border">
           <span className="relative z-10 bg-card px-2 text-muted-foreground">
             Or continue with
@@ -92,6 +127,16 @@ export function LoginForm() {
               placeholder="email@example.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              required
+              disabled={emailPending}
+            />
+            <Label htmlFor="password">Password</Label>
+            <Input
+              type="password"
+              id="password"
+              placeholder="*********"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               required
               disabled={emailPending}
             />
