@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { GithubIcon, Loader, Send } from "lucide-react";
+import { GithubIcon, Loader, Send, User2Icon } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "sonner";
 import { useState, useTransition } from "react";
@@ -108,7 +108,7 @@ export function LoginForm() {
             <Loader className="size-4 animate-spin" />
           ) : (
             <>
-              <GithubIcon className="size-4" />
+              <User2Icon className="size-4" />
               Sign in with Google
             </>
           )}
@@ -130,7 +130,7 @@ export function LoginForm() {
               required
               disabled={emailPending}
             />
-            <Label htmlFor="password">Password</Label>
+            {/* <Label htmlFor="password">Password</Label>
             <Input
               type="password"
               id="password"
@@ -139,7 +139,7 @@ export function LoginForm() {
               onChange={(e) => setPassword(e.target.value)}
               required
               disabled={emailPending}
-            />
+            /> */}
           </div>
           <Button onClick={signInWithEmail} disabled={emailPending}>
             {emailPending ? (
