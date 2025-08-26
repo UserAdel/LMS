@@ -63,14 +63,14 @@ export function LoginForm() {
       await authClient.signIn.email({
         email: email, // required
         password: password,
-        // callbackURL: "http://localhost:3000/login",
+        // callbackURL: "http://localhost:3000/",
         fetchOptions: {
           onSuccess: () => {
             toast.success("signed in successfully");
             router.push(`/`);
           },
           onError: () => {
-            toast.error("error Signing in");
+            toast.error("Invalid Credentials");
           },
         },
       });
