@@ -15,7 +15,7 @@ import { toast } from "sonner";
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { env } from "@/lib/env";
+import getAllUsers from "../action";
 
 export function LoginForm() {
   const router = useRouter();
@@ -24,6 +24,7 @@ export function LoginForm() {
   const [googlePending, startGoogleTransition] = useTransition();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   async function signInWithGithub() {
     startGitubTransition(async () => {
@@ -59,13 +60,46 @@ export function LoginForm() {
     });
   }
 
-  function signInWithEmail() {
+  async function signInWithEmail() {
+    const users = await getAllUsers();
+    const existingUser = users.find((user) => user.email === email);
+    if (existingUser) {
+      toast.error("User Already Exists. Please Login");
+      return;
+    }
+    //add validation for email and password
+    if (!email || !password) {
+      toast.error("Email and password are required");
+      return;
+    }
+    //email regex
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      toast.error("Invalid email format");
+      return;
+    }
+    //password regex
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    if (!passwordRegex.test(password)) {
+      toast.error(
+        "Password must be at least 8 characters long and contain at least one letter and one number"
+      );
+      return;
+    }
+    if (email && password) {
+      //confirm password
+      if (password !== confirmPassword) {
+        toast.error("Passwords do not match");
+        return;
+      }
+    }
+
     startEmailtranstion(async () => {
       await authClient.signUp.email({
         email: email, // required
         name: "user",
         password: password,
-        // callbackURL: "https://lms-azure-tau.vercel.app/",
+        callbackURL: "https://lms-azure-tau.vercel.app/login",
         fetchOptions: {
           onSuccess: () => {
             toast.success("Email Sent");
@@ -152,13 +186,23 @@ export function LoginForm() {
               required
               disabled={emailPending}
             />
-            <Label htmlFor="password">Password</Label>
+            <Label htmlFor="password"> Password</Label>
             <Input
               type="password"
               id="password"
               placeholder="****************"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              required
+              disabled={emailPending}
+            />
+            <Label htmlFor="password"> Confirm Password</Label>
+            <Input
+              type="password"
+              id="confirmPassword"
+              placeholder="****************"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
               required
               disabled={emailPending}
             />
