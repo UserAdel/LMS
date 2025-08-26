@@ -17,7 +17,7 @@ import { NextRequest } from "next/server";
 const emailOptions = {
   mode: "LIVE", // will block requests. Use "DRY_RUN" to log only
   // Block emails that are disposable, invalid, or have no MX records
-  block: ["DISPOSABLE", "INVALID", "NO_MX_RECORDS"],
+  block: [],
 } satisfies EmailOptions;
 
 const botOptions = {
@@ -138,9 +138,6 @@ export const POST = async (req: NextRequest) => {
     return authHandlers.POST(req);
   } catch (error) {
     console.error("Auth POST handler error:", error);
-    return Response.json(
-      { message: "Internal server error" },
-      { status: 500 }
-    );
+    return Response.json({ message: "Internal server error" }, { status: 500 });
   }
 };
