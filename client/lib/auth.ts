@@ -3,18 +3,9 @@ import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { prisma } from "./db";
 import { env } from "./env";
-import { emailOTP, magicLink } from "better-auth/plugins";
+import { magicLink } from "better-auth/plugins";
 import { admin } from "better-auth/plugins";
 import nodemailer from "nodemailer";
-
-// Create a reusable transporter
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: env.GOOGLE_EMAIL_USERSNAME,
-    pass: env.GOOGLE_EMAIL_PASSWORD,
-  },
-});
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
@@ -45,7 +36,7 @@ export const auth = betterAuth({
           html: `
             <h1>Email Verification</h1>
             <p>Click the link below to verify your email:</p>
-            <a href="${url}">${url}</a>
+            <a href="${url}">Click here to verify</a>
           `,
         });
         console.log("Verification email sent:", info.messageId);

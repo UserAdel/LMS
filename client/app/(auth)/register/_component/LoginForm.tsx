@@ -49,7 +49,7 @@ export function LoginForm() {
         callbackURL: "/",
         fetchOptions: {
           onSuccess: () => {
-            toast.success("Signed in successfully(google)");
+            toast.success("Signed in successfully");
           },
           onError: (error) => {
             toast.error(error.error.message);
@@ -65,7 +65,7 @@ export function LoginForm() {
         email: email, // required
         name: "user",
         password: password,
-        // callbackURL: "https://lms-azure-tau.vercel.app/login",
+        callbackURL: "https://lms-azure-tau.vercel.app/",
         fetchOptions: {
           onSuccess: () => {
             toast.success("Email Sent");
