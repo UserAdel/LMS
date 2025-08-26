@@ -175,7 +175,9 @@ export function LoginForm() {
             )}
           </Button>
           <div className="flex text-center justify-center items-center ">
-            <p className="text-muted-foreground">don't have an account? </p>
+            <p className="text-muted-foreground">
+              Don&apos;t have an account?{" "}
+            </p>
             <Link
               className="hover:text-primary hover:underline cursor-pointer ml-1"
               href="/register"
