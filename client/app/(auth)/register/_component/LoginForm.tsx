@@ -48,7 +48,7 @@ export function LoginForm() {
         callbackURL: "/",
         fetchOptions: {
           onSuccess: () => {
-            toast.success("Signed in successfully");
+            toast.success("Signed in successfully(google)");
           },
           onError: (error) => {
             toast.error(error.error.message);
@@ -60,17 +60,18 @@ export function LoginForm() {
 
   function signInWithEmail() {
     startEmailtranstion(async () => {
-      await authClient.signIn.email({
+      await authClient.signUp.email({
         email: email, // required
+        name: "user",
         password: password,
-        // callbackURL: "http://localhost:3000/login",
+        callbackURL: "http://localhost:3000/login",
         fetchOptions: {
           onSuccess: () => {
-            toast.success("signed in successfully");
-            router.push(`/`);
+            toast.success("Email Sent");
+            // router.push(`/verify-request?email=${email}&password=${password}`);
           },
           onError: () => {
-            toast.error("error Signing in");
+            toast.error("error Sending Email");
           },
         },
       });
@@ -98,8 +99,8 @@ export function LoginForm() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-xl ">Welcome back!</CardTitle>
-        <CardDescription>login in with GitHub or Email Account</CardDescription>
+        <CardTitle className="text-xl ">Welcome To MarshalLMS</CardTitle>
+        <CardDescription>Register with GitHub or Email Account</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-2">
         <Button
@@ -135,7 +136,7 @@ export function LoginForm() {
         </Button>
         <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:item-center after:border-t after:border-border">
           <span className="relative z-10 bg-card px-2 text-muted-foreground">
-            Or continue with
+            Or Register with
           </span>
         </div>
         <div className="grid gap-3">
@@ -170,17 +171,17 @@ export function LoginForm() {
             ) : (
               <>
                 <Send className="size-4" />
-                <span>Login</span>
+                <span>Continue with Email</span>
               </>
             )}
           </Button>
           <div className="flex text-center justify-center items-center ">
-            <p className="text-muted-foreground">don't have an account? </p>
+            <p className="text-muted-foreground">Already Have an Account? </p>
             <Link
               className="hover:text-primary hover:underline cursor-pointer ml-1"
-              href="/register"
+              href="/login"
             >
-              Register
+              Login
             </Link>
           </div>
         </div>

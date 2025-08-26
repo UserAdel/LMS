@@ -36,20 +36,37 @@ function VerifyRequest() {
   const isOtpComplete = otp.length === 6;
 
   const handleVerify = () => {
+    // Basic validation
+    if (!otp || otp.length !== 6) {
+      toast.error("Please enter a valid 6-digit OTP");
+      return;
+    }
+
+    if (!email || !password) {
+      toast.error("Email and password are required");
+      return;
+    }
+
     StartTranstion(async () => {
-      await authClient.signIn.emailOtp({
-        email: email,
-        otp: otp,
-        fetchOptions: {
-          onSuccess: () => {
-            toast.success("Verified successfully");
-            router.push("/");
+      try {
+        await authClient.emailOtp.verifyEmail({
+          email: email,
+          otp: otp,
+          fetchOptions: {
+            onSuccess: () => {
+              toast.success("Account created successfully!");
+              router.push("/");
+            },
+            onError: (error: any) => {
+              console.error("Account creation error:", error);
+              toast.error(error.error?.message || "Failed to create account. Please try again.");
+            },
           },
-          onError: () => {
-            toast.error("Failed to verify");
-          },
-        },
-      });
+        });
+      } catch (error) {
+        console.error("Verification error:", error);
+        toast.error("Failed to create account. Please try again.");
+      }
     });
   };
 
