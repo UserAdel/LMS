@@ -65,7 +65,7 @@ export function LoginForm() {
         email: email, // required
         name: "user",
         password: password,
-        callbackURL: "https://lms-azure-tau.vercel.app/login",
+        // callbackURL: "https://lms-azure-tau.vercel.app/login",
         fetchOptions: {
           onSuccess: () => {
             toast.success("Email Sent");
