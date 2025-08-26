@@ -62,8 +62,8 @@ export const auth = betterAuth({
         const transporter = nodemailer.createTransport({
           service: "gmail",
           auth: {
-            user: env.GOOGLE_EMAIL_USERSNAME, // your gmail
-            pass: env.GOOGLE_EMAIL_PASSWORD, // app password from google
+            user: env.GOOGLE_EMAIL_USERSNAME,
+            pass: env.GOOGLE_EMAIL_PASSWORD,
           },
         });
 
