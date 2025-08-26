@@ -30,7 +30,7 @@ const botOptions = {
 const rateLimitOptions = {
   mode: "LIVE",
   interval: "2m", // counts requests over a 2 minute sliding window
-  max: 5, // allows 5 submissions within the window
+  max: 50, // allows 5 submissions within the window
 } satisfies SlidingWindowRateLimitOptions<[]>;
 
 const signupOptions = {
