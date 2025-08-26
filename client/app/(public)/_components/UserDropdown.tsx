@@ -1,5 +1,8 @@
+"use client";
+
 import {
   BookOpen,
+  ChefHat,
   ChevronDownIcon,
   Home,
   LayoutDashboardIcon,
@@ -19,6 +22,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
 import { useSignout } from "@/hooks/use-signout";
+import { authClient } from "@/lib/auth-client";
+import { useEffect, useState } from "react";
 
 interface iAppProps {
   name: string;
@@ -28,6 +33,26 @@ interface iAppProps {
 
 export function UserDropdown({ name, email, image }: iAppProps) {
   const handleSignout = useSignout();
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    let isMounted = true;
+    (async () => {
+      try {
+        const session = await authClient.getSession();
+        if (isMounted) {
+          setIsAdmin(session?.data?.user?.role === "admin");
+        }
+      } catch (error) {
+        if (isMounted) {
+          setIsAdmin(false);
+        }
+      }
+    })();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   return (
     <DropdownMenu>
@@ -77,6 +102,14 @@ export function UserDropdown({ name, email, image }: iAppProps) {
               <span>Dashboard</span>
             </Link>
           </DropdownMenuItem>
+          {isAdmin && (
+            <DropdownMenuItem asChild>
+              <Link href="/admin">
+                <ChefHat size={16} className="opacity-60" aria-hidden="true" />
+                <span>AdminDashboard</span>
+              </Link>
+            </DropdownMenuItem>
+          )}
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleSignout}>
