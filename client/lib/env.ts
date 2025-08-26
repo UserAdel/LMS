@@ -23,6 +23,7 @@ export const env = createEnv({
     GOOGLE_CLIENT_SECRET: z.string().min(1),
     GOOGLE_EMAIL_USERSNAME: z.string().min(1),
     GOOGLE_EMAIL_PASSWORD: z.string().min(1),
+    REGISTER_CALLBACK_URL: z.string().min(1),
   },
 
   /**

@@ -15,6 +15,7 @@ import { toast } from "sonner";
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { env } from "@/lib/env";
 
 export function LoginForm() {
   const router = useRouter();
@@ -64,11 +65,11 @@ export function LoginForm() {
         email: email, // required
         name: "user",
         password: password,
-        callbackURL: "http://localhost:3000/login",
+        callbackURL: env.REGISTER_CALLBACK_URL,
         fetchOptions: {
           onSuccess: () => {
             toast.success("Email Sent");
-            // router.push(`/verify-request?email=${email}&password=${password}`);
+            router.push("/magicLink");
           },
           onError: () => {
             toast.error("error Sending Email");
