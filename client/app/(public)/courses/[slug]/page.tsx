@@ -252,7 +252,7 @@ export default async function SlugPage({ params }: { params: Params }) {
                 <Button className="w-full" asChild>
                   <Link
                     className={buttonVariants({ className: "w-full" })}
-                    href="/dashboard"
+                    href={`/dashboard/${course.id}`}
                   >
                     Watch Course
                   </Link>
