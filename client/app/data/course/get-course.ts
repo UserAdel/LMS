@@ -9,6 +9,7 @@ export default async function getIndvidualCourse(slug: string) {
     },
     select: {
       id: true,
+      slug: true,
       title: true,
       description: true,
       fileKey: true,
