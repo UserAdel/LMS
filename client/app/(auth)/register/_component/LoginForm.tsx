@@ -16,6 +16,8 @@ import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import getAllUsers from "../action";
+import Image from "next/image";
+import googleIcon from "../../../../public/googleIcon.svg";
 
 export function LoginForm() {
   const router = useRouter();
@@ -164,7 +166,7 @@ export function LoginForm() {
             <Loader className="size-4 animate-spin" />
           ) : (
             <>
-              <User2Icon className="size-4" />
+              <Image src={googleIcon} alt="googleIcon" className="size-4" />
               Sign in with Google
             </>
           )}
