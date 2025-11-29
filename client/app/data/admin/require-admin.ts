@@ -11,8 +11,9 @@ export const requireAdmin = cache(async () => {
   if (!session) {
     return redirect("/login");
   }
-  if (session.user.role !== "admin") {
+  if (session.user.role === "admin" || session.user.role === "teacher") {
+    return session;
+  } else {
     return redirect("not-admin");
   }
-  return session;
 });
