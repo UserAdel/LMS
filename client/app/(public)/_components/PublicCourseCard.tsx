@@ -18,7 +18,7 @@ export function PublicCourseCard({ data }: iAppProps) {
       <Badge className="absolute top-2 right-2 z-10">{data.level}</Badge>
 
       <Image
-        src={thumbnailUrl}
+        src={thumbnailUrl || "/Logo.png"}
         alt={data.title}
         className="w-full rounded-t-xl aspect-video h-full object-cover"
         width={600}

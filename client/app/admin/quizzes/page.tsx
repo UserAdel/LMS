@@ -82,7 +82,7 @@ export default async function QuizzesPage() {
 function QuizCard({ quiz }: { quiz: any }) {
   const isActive = new Date() >= quiz.startTime && new Date() <= quiz.endTime;
   const isUpcoming = new Date() < quiz.startTime;
-  const isExpired = new Date() > quiz.endTime;
+
 
   const getStatusBadge = () => {
     if (isActive) {

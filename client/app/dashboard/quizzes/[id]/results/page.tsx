@@ -11,7 +11,7 @@ export default function QuizResultsRedirectPage() {
 
   useEffect(() => {
     fetchLatestAttempt();
-  }, [quizId]);
+  }, [quizId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const fetchLatestAttempt = async () => {
     try {
@@ -35,7 +35,7 @@ export default function QuizResultsRedirectPage() {
         toast.error("Error fetching quiz attempts");
         router.push("/dashboard/quizzes");
       }
-    } catch (error) {
+    } catch {
       toast.error("Error loading quiz attempts");
       router.push("/dashboard/quizzes");
     }

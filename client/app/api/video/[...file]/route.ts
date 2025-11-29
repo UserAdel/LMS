@@ -39,7 +39,7 @@ export async function HEAD(
       session = await auth.api.getSession({
         headers: await headers(),
       });
-    } catch (authError) {
+    } catch {
       return new NextResponse("Authentication service unavailable", {
         status: 503,
       });
@@ -129,10 +129,10 @@ export async function GET(
     }
 
     // Authentication check
-    const sessionToken = request.cookies.get(
-      "better-auth.session_token"
-    )?.value;
-    if (!sessionToken) {
+    const session = await auth.api.getSession({
+      headers: await headers(),
+    });
+    if (!session?.user) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 

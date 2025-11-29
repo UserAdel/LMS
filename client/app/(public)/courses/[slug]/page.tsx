@@ -34,7 +34,7 @@ export default async function SlugPage({ params }: { params: Params }) {
       <div className="order-1 lg:col-span-2 ">
         <div className="relative aspect-video w-full overflow-hidden rounded-xl shadow-lg">
           <Image
-            src={`https://${env.NEXT_PUBLIC_S3_BUCKET_NAME_IMAGES}.t3.storageapi.dev/${course.fileKey}`}
+            src={`/api/image/${encodeURIComponent(course.fileKey)}`}
             alt={course.title}
             fill
             className="object-cover"

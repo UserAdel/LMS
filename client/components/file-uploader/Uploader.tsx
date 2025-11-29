@@ -44,7 +44,7 @@ export function Uploader({ value, onChange, fileTypeAccepted }: iAppProps) {
     isDeleting: false,
     fileType: fileTypeAccepted,
     key: value,
-    objectURL: value ? fileUrl : undefined,
+    objectURL: value && fileUrl ? fileUrl : undefined,
   });
 
   const UploadFile = useCallback(

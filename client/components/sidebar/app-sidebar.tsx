@@ -4,21 +4,14 @@ import logo from "@/public/Logo.png";
 import * as React from "react";
 import {
   IconCamera,
-  IconChartBar,
   IconDashboard,
   IconFileAi,
   IconFileDescription,
-  IconFolder,
-  IconHelp,
   IconListDetails,
-  IconSearch,
-  IconSettings,
-  IconUsers,
   IconClipboardList,
 } from "@tabler/icons-react";
 
 import { NavMain } from "@/components/sidebar/nav-main";
-import { NavSecondary } from "@/components/sidebar/nav-secondary";
 import { NavUser } from "@/components/sidebar/nav-user";
 import {
   Sidebar,

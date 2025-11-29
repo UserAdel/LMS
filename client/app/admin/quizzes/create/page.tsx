@@ -101,7 +101,7 @@ export default function CreateQuizPage() {
         } else {
           toast.error("Failed to fetch courses");
         }
-      } catch (error) {
+      } catch {
         toast.error("Error fetching courses");
       }
     };
@@ -117,7 +117,7 @@ export default function CreateQuizPage() {
       0
     );
     form.setValue("quiz.totalMarks", totalMarks);
-  }, [form.watch("questions")]);
+  }, [form.watch("questions")]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const addQuestion = () => {
     appendQuestion({
@@ -160,7 +160,7 @@ export default function CreateQuizPage() {
       } else {
         toast.error(result.message);
       }
-    } catch (error) {
+    } catch {
       toast.error("An unexpected error occurred");
     } finally {
       setIsLoading(false);

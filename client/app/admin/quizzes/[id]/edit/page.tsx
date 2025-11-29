@@ -106,7 +106,7 @@ export default function EditQuizPage() {
     fields: questionFields,
     append: appendQuestion,
     remove: removeQuestion,
-    replace: replaceQuestions,
+
   } = useFieldArray({
     control: form.control,
     name: "questions",
@@ -154,7 +154,7 @@ export default function EditQuizPage() {
           toast.error("Failed to load quiz data");
           router.push("/admin/quizzes");
         }
-      } catch (error) {
+      } catch {
         toast.error("Error loading data");
         router.push("/admin/quizzes");
       } finally {
@@ -173,7 +173,7 @@ export default function EditQuizPage() {
       0
     );
     form.setValue("quiz.totalMarks", totalMarks);
-  }, [form.watch("questions")]);
+  }, [form.watch("questions")]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const addQuestion = () => {
     appendQuestion({
@@ -223,7 +223,7 @@ export default function EditQuizPage() {
         const error = await response.json();
         toast.error(error.message || "Failed to update quiz");
       }
-    } catch (error) {
+    } catch {
       toast.error("An unexpected error occurred");
     } finally {
       setIsLoading(false);

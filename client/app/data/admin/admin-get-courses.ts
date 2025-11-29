@@ -4,7 +4,7 @@ import { requireAdmin } from "./require-admin";
 
 export async function adminGetCourses() {
   const session = await requireAdmin();
-  const role = session.user.role;
+
 
   const data = await prisma.course.findMany({
     where: {

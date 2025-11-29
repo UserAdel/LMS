@@ -7,13 +7,9 @@ import {
   IconDashboard,
   IconFileAi,
   IconFileDescription,
-  IconHelp,
-  IconSearch,
-  IconSettings,
 } from "@tabler/icons-react";
 
 import { NavMain } from "@/components/sidebar/nav-main";
-import { NavSecondary } from "@/components/sidebar/nav-secondary";
 import { NavUser } from "@/components/sidebar/nav-user";
 import {
   Sidebar,
@@ -34,6 +30,11 @@ const data = {
       url: "/dashboard",
       icon: IconDashboard,
     },
+    // {
+    //   title: "Quizzes",
+    //   url: "/dashboard/quizzes",
+    //   icon: IconDashboard,
+    // },
   ],
   navClouds: [
     {

@@ -13,7 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { Separator } from "@/components/ui/separator";
+
 import {
   CheckCircleIcon,
   XCircleIcon,
@@ -70,7 +70,7 @@ export default function QuizResultsPage() {
 
   useEffect(() => {
     fetchResults();
-  }, [attemptId]);
+  }, [attemptId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const fetchResults = async () => {
     try {
@@ -84,7 +84,7 @@ export default function QuizResultsPage() {
         toast.error("Results not found");
         router.push("/dashboard/quizzes");
       }
-    } catch (error) {
+    } catch {
       toast.error("Error loading results");
       router.push("/dashboard/quizzes");
     } finally {
@@ -136,7 +136,7 @@ export default function QuizResultsPage() {
             <XCircleIcon className="h-12 w-12 text-destructive mb-4" />
             <h3 className="text-lg font-semibold mb-2">Results Not Found</h3>
             <p className="text-muted-foreground text-center mb-4">
-              The quiz results you're looking for don't exist or are no longer
+              The quiz results you&apos;re looking for don&apos;t exist or are no longer
               available.
             </p>
             <Button onClick={() => router.push("/dashboard/quizzes")}>

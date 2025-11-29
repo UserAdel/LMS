@@ -1,6 +1,8 @@
 import { env } from "@/lib/env";
 
-export function useContructUrl(key: string, isVideo?: boolean): string {
+export function useContructUrl(key: string | null | undefined, isVideo?: boolean): string | null {
+  if (!key) return null;
+
   // Check if it's a video file by extension or explicit parameter
   const hasVideoExtension = /\.(mp4|webm|ogg|avi|mov|wmv|flv|mkv)$/i.test(key);
   const shouldUseVideoApi = isVideo || hasVideoExtension;

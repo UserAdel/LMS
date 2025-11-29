@@ -59,7 +59,7 @@ export default function QuizTakingPage() {
 
   useEffect(() => {
     fetchQuiz();
-  }, [quizId]);
+  }, [quizId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (quizStarted && timeLeft > 0) {
@@ -75,7 +75,7 @@ export default function QuizTakingPage() {
 
       return () => clearInterval(timer);
     }
-  }, [quizStarted, timeLeft]);
+  }, [quizStarted, timeLeft]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const fetchQuiz = async () => {
     try {

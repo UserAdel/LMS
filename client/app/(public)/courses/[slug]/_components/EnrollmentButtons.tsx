@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { tryCatch } from "@/hooks/try-catch";
-import { useConfetti } from "@/hooks/use-confetti";
+
 import { enrollInCourseAction } from "../actions";
 import { useTransition } from "react";
 import { Loader2 } from "lucide-react";

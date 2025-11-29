@@ -43,7 +43,7 @@ export function UserDropdown({ name, email, image }: iAppProps) {
         if (isMounted) {
           setIsAdmin(session?.data?.user?.role === "admin");
         }
-      } catch (error) {
+      } catch {
         if (isMounted) {
           setIsAdmin(false);
         }

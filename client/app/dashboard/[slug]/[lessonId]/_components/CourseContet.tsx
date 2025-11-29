@@ -35,13 +35,13 @@ export function CourseContent({ data }: iAppProps) {
       <div className="aspect-video bg-black rounded-lg relative overflow-hidden">
         <video
           className="w-full  h-full object-cover "
-          poster={thumbnailUrl}
+          poster={thumbnailUrl ?? undefined}
           controls
           controlsList="nodownload"
           crossOrigin="anonymous"
           preload="metadata"
         >
-          <source src={videoUrl} type="video/mp4" />
+          <source src={videoUrl || ""} type="video/mp4" />
           Your Browser does not support the video tag.
         </video>
       </div>

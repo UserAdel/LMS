@@ -2,8 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { GetObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { S3 } from "@/lib/S3Client";
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
+
 import { env } from "@/lib/env";
 
 export async function GET(
@@ -24,11 +23,8 @@ export async function GET(
       return new NextResponse("Forbidden", { status: 403 });
     }
 
-    // Authentication check
-    const sessionToken = request.cookies.get('better-auth.session_token')?.value;
-    if (!sessionToken) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
+    // Authentication check removed to allow public access to images
+
 
     const { file } = await params;
     // Properly decode URL-encoded components and join
