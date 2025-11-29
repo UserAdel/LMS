@@ -22,7 +22,7 @@ export function CourseContent({ data }: iAppProps) {
     thumbnail: string;
     videoKey: string;
   }) {
-    const videoUrl = useContructUrl(videoKey);
+    const videoUrl = useContructUrl(videoKey, true); // Explicitly mark as video
     const thumbnailUrl = useContructUrl(thumbnail);
     if (!videoKey)
       return (
@@ -37,10 +37,11 @@ export function CourseContent({ data }: iAppProps) {
           className="w-full  h-full object-cover "
           poster={thumbnailUrl}
           controls
+          controlsList="nodownload"
+          crossOrigin="anonymous"
+          preload="metadata"
         >
           <source src={videoUrl} type="video/mp4" />
-          <source src={videoUrl} type="video/webm" />
-          <source src={videoUrl} type="video/ogg" />
           Your Browser does not support the video tag.
         </video>
       </div>

@@ -32,7 +32,10 @@ export const env = createEnv({
    */
   clientPrefix: "NEXT_PUBLIC_",
 
-  client: { NEXT_PUBLIC_S3_BUCKET_NAME_IMAGES: z.string().min(1) },
+  client: { 
+    NEXT_PUBLIC_S3_BUCKET_NAME_IMAGES: z.string().min(1),
+    NEXT_PUBLIC_S3_BUCKET_NAME_VIDEOS: z.string().min(1).optional()
+  },
 
   /**
    * What object holds the environment variables at runtime. This is usually
@@ -42,6 +45,8 @@ export const env = createEnv({
     ...process.env,
     NEXT_PUBLIC_S3_BUCKET_NAME_IMAGES:
       process.env.NEXT_PUBLIC_S3_BUCKET_NAME_IMAGES,
+    NEXT_PUBLIC_S3_BUCKET_NAME_VIDEOS:
+      process.env.NEXT_PUBLIC_S3_BUCKET_NAME_VIDEOS || process.env.NEXT_PUBLIC_S3_BUCKET_NAME_IMAGES,
   },
 
   /**
